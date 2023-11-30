@@ -235,6 +235,14 @@
             margin: 10px 0;
         }
 
+        .img-confeti{
+            margin-left: auto;
+            margin-right: auto;
+            width: 300px;
+            height: 200px;
+            background-size: 100%;
+        }
+
         #join-us-btn {
             display: block; /* Make the button a block element */
             margin: 10px auto; /* Vertical margins remain 10px, horizontal margins are auto */
@@ -665,6 +673,15 @@ function loadPage(page, callback) {
                         </form>
                     `;
                     break;
+
+                case 'feedback-submitted':
+                    section.innerHTML =`
+                        <div class="white-text-section">
+                            <h2>FeedBack Submitted</h2>
+                            <img src="Confetti.png" class="img-confeti"></div>
+
+                    `;
+                    break;
                 
 
                     case 'community-events':
@@ -774,7 +791,7 @@ function loadPage(page, callback) {
                 return Email.send({
                     SecureToken: "9bc7082a-b6ed-461c-b511-1ccf63032bbc", 
                     To: eventEmail,
-                    From: "aserr748@gmail.com", 
+                    From: "homelessrcenter@gmail.com", 
                     Subject: "Event Submission Confirmation",
                     Body: `Thank you for submitting your event '${eventName}'. We will review it shortly.`
                 });
@@ -1029,7 +1046,10 @@ function loadPage(page, callback) {
             }).then(data => {
                 console.log('Feedback submitted:', data);
                 // Handle successful submission
-            }).catch(error => {
+            })
+            .then(loadPage('feedback-submitted'))
+
+            .catch(error => {
                 console.error('Error:', error);
                 // Handle error
             });
